@@ -20,9 +20,18 @@ report, it holds three problems with three different fixes. Each one now has its
 <ProblemTable ticket={4471} />
 
 <Callout kind="warn">
-The queued parser fix closes only the first ticket. The form hint and the one-day move stay
-broken after it ships.
+Engineering closed #4471 on 5 October. That closes two of the three problems: the parser is
+fixed, and the form hint will not be fixed because booking-v3 is retired. The one-day move has
+no fix, and its ticket stays open.
 </Callout>
+
+## Where each problem stands
+
+| problem | ticket | state | why |
+| --- | --- | --- | --- |
+| parser | [#1](https://github.com/melvinsalvador/support-kb-4471/issues/1) | closed · fixed | `fix(dates): parse dd/mm for eu locales` |
+| form hint | [#2](https://github.com/melvinsalvador/support-kb-4471/issues/2) | closed · won't fix | booking-v3 form retired |
+| one-day move | [#3](https://github.com/melvinsalvador/support-kb-4471/issues/3) | **open** | not part of the #4471 fix |
 
 ## The three problems
 
@@ -61,7 +70,7 @@ under the parser.
 
 ## Next
 
-- Split the queued fix: parser first, then the booking-v3 hint, then the time-zone conversion.
+- Fix the time-zone conversion (#3). Closing #4471 did not close it.
 - Merge on cause, not subject: a new decision record should replace 0001.
 
 <RenderStamp {signature} />
