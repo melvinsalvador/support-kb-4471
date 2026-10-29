@@ -4,7 +4,7 @@ title: '#4471 · three problems, not one'
 owner: Melvin Salvador
 status: open
 reviewed: 2026-10-29
-signature: Melvin Salvador
+signature: 'v1.eyJzdWIiOiIyNTYxIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMyOTgzODcsImV4cCI6MTc5MzM4NDc4N30.AGnP-DvVDhAyXuLbg8XhSR3lGAHWvttBlKOQbRDUyUo'
 ---
 
 <script>
