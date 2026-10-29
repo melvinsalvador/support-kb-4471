@@ -1,0 +1,66 @@
+---
+layout: runbook
+title: '#4471 · three problems, not one'
+owner: Melvin Salvador
+status: open
+reviewed: 2026-10-29
+signature: Melvin Salvador
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+[#4471](/kb/incidents/4471) went in as one issue: dates parse mm/dd in eu locales. Read report by
+report, it holds three problems with three different fixes. Each one now has its own ticket.
+
+<ProblemTable ticket={4471} />
+
+<Callout kind="warn">
+The queued parser fix closes only the first ticket. The form hint and the one-day move stay
+broken after it ships.
+</Callout>
+
+## The three problems
+
+**Parser** ([#1](https://github.com/melvinsalvador/support-kb-4471/issues/1)). The shared parser
+reads every date month first, and every tenant in #4471 writes the day first. "Booked for
+7 April" comes back as 4 July. It reaches us through the app, email and the booking-v2 form.
+
+**Form hint** ([#2](https://github.com/melvinsalvador/support-kb-4471/issues/2)). booking-v3
+prints `MM/DD/YYYY` under its date field, and its tenants read the field day first. People type
+what the hint tells them, so the date flips. These reports come only through the form, only from
+the three tenants on booking-v3. A parser fix does not touch them.
+
+**One-day move** ([#3](https://github.com/melvinsalvador/support-kb-4471/issues/3)). Not a flip:
+the date lands a day early, or differs by where the person is. "Client in Lisbon got Tuesday.
+Client in Toronto got Monday." That is a time-zone conversion. The desk already read these as a
+one-day move (`desk-notes.json`), but the cause table still files them under the parser.
+
+## Why one ticket hid three
+
+- **We merged on subject.** [Decision 0001](/kb/decisions/0001-dedupe-by-subject) merges reports
+  whose subjects match. "Wrong day on the invite" fits all three problems, so all three landed in
+  one ticket.
+- **Intake guesses from the browser.** The intake tag comes from the reporter's browser, not the
+  tenant, so it misfiles form-hint reports as parser ones and the other way round. The table
+  above asks the tenant directory instead.
+- **The export repeats rows.** The ticket system exports in overlapping pages. Counts here are by
+  unique report id.
+
+## As the cause table sees it
+
+For comparison, the desk's own table: two causes by tenant, with the one-day moves footnoted
+under the parser.
+
+<CauseTable ticket={4471} />
+
+## Next
+
+- Split the queued fix: parser first, then the booking-v3 hint, then the time-zone conversion.
+- Merge on cause, not subject: a new decision record should replace 0001.
+
+<RenderStamp {signature} />
