@@ -29,7 +29,7 @@
     {#each split.groups as g (g.problem)}
       <tr>
         <td><code>{g.problem}</code> {WHAT[g.problem]}</td>
-        <td>{g.reports}</td>
+        <td>{g.reports}{#if g.filedUnder}<span class="filed"> counted in {g.filedUnder.join(', ')}</span>{/if}</td>
         <td>{g.tenants}</td>
         <td class="ch">{channels(g.channels)}</td>
         <td>{g.firstSeen} → {g.lastSeen}</td>
@@ -43,5 +43,5 @@
 
 <style>
   .sum { font-size: 1.1rem; }
-  .ch { color: var(--muted); font-size: 0.85em; }
+  .ch, .filed { color: var(--muted); font-size: 0.85em; }
 </style>
